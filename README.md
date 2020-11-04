@@ -10,6 +10,10 @@ Ensure git command work.
 
 <pre><code>git clone https://github.com/Folcoxx/EasyDNS.git</code></pre>
 
+IF ERORS WHEN YOU LUNCH THE SCRIPT COPY https://raw.githubusercontent.com/Folcoxx/EasyDNS/main/dnsall.sh
+
+And create the file dnsall.sh to paste the code 
+
 <h2>Third step</h2>
 
 Change the rigths
@@ -22,3 +26,5 @@ Change the rigths
 Lunch the script
 
 <pre><code>./dnsall.sh</code></pre>
+
+
