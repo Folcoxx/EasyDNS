@@ -64,7 +64,7 @@ then
 
 		read ipv6
 
-		echo "$host.$vardomain. IN A $ipv6" >> $zonefile
+		echo "$host.$vardomain. IN AAAA $ipv6" >> $zonefile
 	fi
 else
 
@@ -153,6 +153,18 @@ then
 		echo "1h) ; Negative caching TTL of 1 hour" >> $zonefileinv
 		echo "$invip.in-addr.arpa. IN NS $host.$vardomain." >> $zonefileinv
 		echo "$invip.in-addr.arpa. IN PTR $vardomain." >> $zonefileinv
+
+		if [ $aaaansyn == "y" ]
+		then
+
+			echo "Enter your IPv6 inverse"
+
+			read invipv6
+
+			echo "$invipv6.in-addr.arpa. IN NS $host.$vardomain." >> $zonefileinv
+			echo "$invipv6.in-addr.arpa. IN PTR $vardomain." >> $zonefileinv
+
+		fi
 
 	fi
 else
