@@ -23,12 +23,6 @@ echo "Enter your IP"
 
 read ip
 
-echo "Enter your IP iverse exemple if your ip was 192.168.1.11 enter 11.1.168.192"
-
-read invip
-
-zonefileinv=db.$invip
-
 cd /etc/bind
 
 echo "zone "\""$vardomain"\"" {" >> named.conf.local
@@ -37,16 +31,12 @@ echo "        file "\""$zonefile"\"";" >> named.conf.local
 echo "        allow-transfer{none;};" >> named.conf.local
 echo "};" >> named.conf.local
 
-echo "zone "\"$invip.in-addr.arpa"\" {" >> named.conf.local
-echo "        type master;" >> named.conf.local
-echo "        file "\""$zonefileinv"\"";" >> named.conf.local
-echo "        allow-transfer{none;};" >> named.conf.local
-echo "};" >> named.conf.local
+
 
 cd /var/cache/bind
 
 touch $zonefile
-touch $zonefileinv
+
 
 echo "\$TTL 3h" >> $zonefile
 echo "$vardomain. IN SOA $host.$vardomain. moi.$vardomain.(" >> $zonefile
@@ -58,16 +48,53 @@ echo "1h) ; Negative caching TTL of 1 hour" >> $zonefile
 echo "$vardomain. IN NS $host.$vardomain." >> $zonefile
 echo "$host.$vardomain. IN A $ip" >> $zonefile
 
-echo "\$TTL 3h" >> $zonefileinv
-echo "$invip.in-addr.arpa. IN SOA $host.$vardomain. moi.$vardomain.(" >> $zonefileinv
-echo "0000001 ; Serial" >> $zonefileinv
-echo "4h ; Refresh after 3 hours" >> $zonefileinv
-echo "1h ; Retry after 1 hour" >> $zonefileinv
-echo "1w ; Expire after 1 week" >> $zonefileinv
-echo "1h) ; Negative caching TTL of 1 hour" >> $zonefileinv
-echo "$invip.in-addr.arpa. IN NS $host.$vardomain." >> $zonefileinv
-echo "$invip.in-addr.arpa. IN PTR $vardomain." >> $zonefileinv
 
+echo "Do you want reverse zone ? (y/n)"
+
+read rvs
+
+if [ $rvs == "y" ] || [ $rvs == "n" ]
+then
+
+	if [ $rvs == "y" ]
+	then
+
+		echo "Enter your IP inverse exemple if your ip was 192.168.1.11 enter 11.1.168.192"
+
+		read invip
+
+		zonefileinv=db.$invip
+
+		cd /etc/bind
+
+		echo "zone "\"$invip.in-addr.arpa"\" {" >> named.conf.local
+		echo "        type master;" >> named.conf.local
+		echo "        file "\""$zonefileinv"\"";" >> named.conf.local
+		echo "        allow-transfer{none;};" >> named.conf.local
+		echo "};" >> named.conf.local
+
+		cd /var/cache/bind
+
+		touch $zonefileinv
+
+		echo "\$TTL 3h" >> $zonefileinv
+		echo "$invip.in-addr.arpa. IN SOA $host.$vardomain. moi.$vardomain.(" >> $zonefileinv
+		echo "0000001 ; Serial" >> $zonefileinv
+		echo "4h ; Refresh after 3 hours" >> $zonefileinv
+		echo "1h ; Retry after 1 hour" >> $zonefileinv
+		echo "1w ; Expire after 1 week" >> $zonefileinv
+		echo "1h) ; Negative caching TTL of 1 hour" >> $zonefileinv
+		echo "$invip.in-addr.arpa. IN NS $host.$vardomain." >> $zonefileinv
+		echo "$invip.in-addr.arpa. IN PTR $vardomain." >> $zonefileinv
+
+	fi
+else
+
+echo "Errors of caractere"
+
+exit
+
+fi
 
 echo "Do you want MX record ? (y/n)"
 
