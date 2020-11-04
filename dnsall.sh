@@ -23,7 +23,7 @@ echo "Enter your IP"
 
 read ip
 
-echo "Enter your IP iverse exemple if your ip was 192.168.1.11 enter 1.168.192"
+echo "Enter your IP iverse exemple if your ip was 192.168.1.11 enter 11.1.168.192"
 
 read invip
 
@@ -97,10 +97,51 @@ fi
 
 echo "Do you want other A record ? (y/n)"
 
+read ayn
+
+if [ $ayn == "y" ] || [ $ayn == "n" ]
+then
+
+	if [ $ayn == "y" ]
+	then
+        	echo "How many ? "
+
+            read anbs
+
+				if [[ ! $anbs =~ ^[0-9]+$ ]] ; then
+			    	echo "No good enter number"
+			    	exit
+				fi
+
+                i=1
+
+                while [ $i -le $anbs ]
+                do
+
+                	echo "Name of A record "
+
+                	read arec
+
+                	echo "$arec. IN A $ip" >> $zonefile
+
+					i=$((i+1))	
+
+                done
+	fi
+
+else
+
+echo "Errors of caractere"
+
+exit
+
+
+echo "Do you want other CNAME record ? (y/n)"
+
 read cnameyn
 
 
-if [ $mxyn == "y" ] || [ $mxyn == "n" ]
+if [ $cnameyn == "y" ] || [ $cnameyn == "n" ]
 then
 
 	if [ $cnameyn == "y" ]
@@ -119,11 +160,11 @@ then
                 while [ $i -le $cnamenbs ]
                 do
 
-                	echo "Name of A record "
+                	echo "Name of CNAME record (Record name) |space| Where ? (exemple www.toto.fr toto.fr ) "
 
-                	read cname
+                	read cname where
 
-                	echo "$cname. IN A $ip" >> $zonefile
+                	echo "$cname. IN CNAME $where." >> $zonefile
 
 					i=$((i+1))
 
