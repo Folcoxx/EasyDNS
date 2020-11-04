@@ -50,6 +50,71 @@ echo "1h) ; Negative caching TTL of 1 hour" >> $zonefile
 echo "$vardomain. IN NS $host.$vardomain." >> $zonefile
 echo "$host.$vardomain. IN A $ip" >> $zonefile
 
+echo "Do you want AAAA NS records ? (y/n)"
+
+read aaaansyn
+
+if [ $aaaansyn == "y" ] || [ $aaaansyn == "n" ]
+then
+
+	if [ $aaaansyn == "y" ]
+	then
+
+		echo "Enter your IPv6"
+
+		read ipv6
+
+		echo "$host.$vardomain. IN A $ipv6" >> $zonefile
+	fi
+else
+
+echo "Errors of caractere"
+
+exit
+
+fi
+
+echo "Do you want other AAAA record ? (y/n)"
+
+read aaaarcyn
+
+if [ $aaaarcyn == "y" ] || [ $aaaarcyn == "n" ]
+then
+
+	if [ $aaaarcyn == "y" ]
+	then
+        	echo "How many ? "
+
+            read aaaarvbs
+
+				if [[ ! $anbs =~ ^[0-9]+$ ]] ; then
+			    	echo "No good enter number"
+			    	exit
+				fi
+
+                i=1
+
+                while [ $i -le $aaaarvbs ]
+                do
+
+                	echo "Name of AAAA record |space| ipv6"
+
+                	read aaaarec aaipv6
+
+                	echo "$aaaarec. IN AAAA $aaipv6" >> $zonefile
+
+					i=$((i+1))	
+
+                done
+	fi
+
+else
+
+echo "Errors of caractere"
+
+exit
+
+fi
 
 echo "Do you want reverse zone ? (y/n)"
 
