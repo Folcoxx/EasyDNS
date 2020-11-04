@@ -14,7 +14,7 @@ Ensure git command work.
 
 Change the rigths
 
-<pre><code>cd BIND-DNSSEC3/</code>
+<pre><code>cd EasyDNS/</code>
 <code>chmod 750 dnsall.sh</code></pre>
 
 <h2>And to finish</h2>
