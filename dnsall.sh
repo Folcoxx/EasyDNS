@@ -8,9 +8,9 @@ sudo apt-get upgrade -y
 
 sudo apt-get install bind9 -y
 
-echo "Enter your Hostaname (see /etc/hostame)"
+seehost=$(hostnamectl | grep "Static hostname:")
 
-read host
+host=${seehost:20}
 
 echo "Enter your domain name like toto.fr"
 
