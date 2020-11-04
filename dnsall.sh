@@ -87,7 +87,7 @@ then
 
             read aaaarvbs
 
-				if [[ ! $anbs =~ ^[0-9]+$ ]] ; then
+				if [[ ! $aaaarcyn =~ ^[0-9]+$ ]] ; then
 			    	echo "No good enter number"
 			    	exit
 				fi
