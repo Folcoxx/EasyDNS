@@ -1,6 +1,6 @@
 #!/bin/bash
 
-1apt-get install sudo -y
+apt-get install sudo -y
 
 sudo apt-get install dnsutils -y
 
